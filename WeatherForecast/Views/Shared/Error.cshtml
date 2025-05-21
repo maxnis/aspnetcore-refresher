@@ -1,0 +1,21 @@
+﻿@model ErrorViewModel
+@{
+    ViewBag.Title = "Error";
+}
+
+<h3 class="text-danger text-red">An error occurred while processing your request.</h3>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<div class="box flex float-left w-30 margin-top-200 margin-left-200">
+    <h3 class="text-danger">@Model.StatusCode</h3>
+    <br />
+    <p class="text-danger">
+        @Model.ErrorMessage
+    </p>
+</div>
