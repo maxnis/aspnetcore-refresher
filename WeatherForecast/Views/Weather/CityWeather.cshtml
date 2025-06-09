@@ -1,6 +1,7 @@
 ﻿@model CityWeather?
 
-@ViewBag.BackColor = "#efefef";
 <div class="w-auto">
-    <partial name="CityPartialView" model="Model" />
+    @{
+        await Html.RenderPartialAsync("CityPartialView", Model);
+    }
 </div>
