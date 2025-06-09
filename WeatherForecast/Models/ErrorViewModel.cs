@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace SectionAssignment.Models;
+namespace WeatherForecast.Models;
 
 public class ErrorViewModel
 {

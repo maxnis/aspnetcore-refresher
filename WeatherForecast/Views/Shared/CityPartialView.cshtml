@@ -1,0 +1,47 @@
+﻿@model CityWeather?
+
+@if (Model != null)
+{
+    <div class="box flex float-left w-auto margin-top-200 margin-left @ViewBag.BackColor">
+        <table class="table w-100">
+            <tbody>
+                <tr>
+                    <td class="w-50">
+                        <h3>@Model.CityName</h3>
+                        <p class="text-dark-grey">@Model.DateAndTime.ToString("dd MMM yyyy")</p>
+                        @if (ViewBag.ShowDetails)
+                        {
+                            <a class="margin-top" href="/weather/@Model.CityUniqueCode">Details</a>
+                        }
+                        else
+                        {
+                            <p class="text-grey">@Model.DateAndTime.ToString("t")</p>
+                        }
+                    </td>
+                    <td class="w-50 border-left">
+                        <div class="margin-auto">
+                            <h3 class="text-lg-center inline-block">@Model.TemperatureFahrenheit</h3>
+                            <sup><span class="text-grey">&#8457;</span></sup>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            @if (!ViewBag.ShowDetails)
+            {
+                <tfoot>
+                    <tr>
+                        <td class="w-100 h-50" colspan="2">
+                            <p class="text-center margin-top-20">
+                                <a href="/" class="btn btn-primary">View All Cities</a>
+                            </p>
+                        </td>
+                    </tr>
+                </tfoot>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <p>No city data found</p>
+}

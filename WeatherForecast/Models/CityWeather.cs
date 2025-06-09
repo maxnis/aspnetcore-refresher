@@ -1,4 +1,4 @@
-﻿namespace SectionAssignment.Models;
+﻿namespace WeatherForecast.Models;
 
 public class CityWeather
 {

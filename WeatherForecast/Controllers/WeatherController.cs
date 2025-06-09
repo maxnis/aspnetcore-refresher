@@ -1,16 +1,16 @@
 using System.Diagnostics;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using SectionAssignment.Models;
+using WeatherForecast.Models;
 
-namespace SectionAssignment.Controllers;
+namespace WeatherForecast.Controllers;
 
 public class WeatherController(ILogger<WeatherController> logger) : Controller
 {
     private readonly ILogger<WeatherController> _logger = logger;
 
-    private readonly IList<CityWeather> _cities = new List<CityWeather>()
-    {
+    private readonly IList<CityWeather> _cities =
+    [
         new()
         {
             CityUniqueCode = "LDN",
@@ -32,13 +32,14 @@ public class WeatherController(ILogger<WeatherController> logger) : Controller
             DateAndTime = DateTime.Parse("2030-01-01 9:00"),
             TemperatureFahrenheit = 82
         }
-    };
+    ];
 
     [HttpGet]
     [Route("/")]
     public IActionResult Index()
     {
         ViewBag.Title = "Weather Forecast";
+        ViewBag.ShowDetails = true;
         return View(_cities);
     }
 
@@ -47,6 +48,7 @@ public class WeatherController(ILogger<WeatherController> logger) : Controller
     public IActionResult GetCityWeather(string cityCode)
     {
         ViewBag.Title = "City Weather Forecast";
+        ViewBag.ShowDetails = false;
         var city = _cities.FirstOrDefault(temp => temp.CityUniqueCode.Equals(cityCode, StringComparison.CurrentCultureIgnoreCase));
         if (city == null)
         {
