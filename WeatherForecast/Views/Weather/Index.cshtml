@@ -1,19 +1,15 @@
 ﻿@model IEnumerable<CityWeather>
 
-@foreach (var city in Model)
-{
-    ViewBag.BackColor = GetBgColor(city.TemperatureFahrenheit);
-    <partial name="CityPartialView" model="city" />
+@{
+    ViewBag.Title = "Weather";
 }
 
-@functions {
-    public static string GetBgColor(int temperature)
-    {
-        return temperature switch
+<div class="margin-top-200 margin-left">
+    <div class="flex">
+        @foreach (CityWeather city in Model)
         {
-            > 74 => "orange-back",
-            < 44 => "blue-back",
-            _ => "green-back"
-        };
-    }
-}
+            @await Component.InvokeAsync("City", new { city = city })
+        }
+
+    </div>
+</div>

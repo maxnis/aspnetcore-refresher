@@ -7,8 +7,8 @@
 
 *
 {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     box-sizing: border-box;
 }
 
@@ -21,12 +21,12 @@
 {
     background-color: #cacaca;
     padding: 10px;
-    box-shadow: 0 1px 2px 2px #cacaca;
+    box-shadow: 0px 1px 2px 2px #cacaca;
 }
 
 .navbar-brand
 {
-    margin: 0 30px 5px 5px;
+    margin: 0px 30px 5px 5px;
     font-size: 1.1em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -49,7 +49,7 @@
     border-radius: 6px;
     transition: background-color 0.4s;
     display: inline-block;
-    margin: 0 3px;
+    margin: 0px 3px;
     color: #1383a4;
     text-decoration: none;
 }
@@ -113,7 +113,8 @@ a:hover
     border-collapse: collapse;
     border: 1px solid #ffffff;
     padding: 5px;
-    box-shadow: 0 0 4px 2px #e4e4e4;
+    box-shadow: 0px 0px 4px 2px #e4e4e4;
+    margin: 10px 0px;
     margin: auto;
 }
 
@@ -137,7 +138,7 @@ a:hover
 .table tbody tr
 {
     transition: background-color 0.4s, color 0.3s;
-    /*background-color: #efefef;*/
+    background-color: #efefef;
     border-bottom: 1px solid #ffffff;
 }
 
@@ -267,6 +268,7 @@ a:hover
     background-color: #faca70;
 }
 
+
 .footer-content
 {
     background-color: #bfbfbf;
@@ -289,7 +291,7 @@ a:hover
     padding: 15px;
     border-radius: 8px;
     border: 2px solid #d3d1d1;
-    box-shadow: 0 0 3px 2px #ffffff;
+    box-shadow: 0px 0px 3px 2px #ffffff;
     min-width: 400px;
 }
 
@@ -307,7 +309,7 @@ a:hover
     padding: 15px;
     border-radius: 8px;
     border: 2px solid #d3d1d1;
-    box-shadow: 0 0 3px 2px #ffffff;
+    box-shadow: 0px 0px 3px 2px #ffffff;
 }
 
 .flex-borderless
@@ -328,7 +330,7 @@ a:hover
     .navbar-brand
     {
         display: inline-block;
-        margin-bottom: 0;
+        margin-bottom: 0px;
     }
 
     .navbar > ul

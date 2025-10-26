@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
-using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 using WeatherForecast.Models;
 
 namespace WeatherForecast.Controllers;
@@ -40,14 +41,19 @@ public class WeatherController(ILogger<WeatherController> logger) : Controller
     {
         ViewBag.Title = "Weather Forecast";
         ViewBag.ShowDetails = true;
+        _logger.LogInformation("Accessed weather forecast index with {CityCount} cities", _cities.Count);
         return View(_cities);
     }
 
     [HttpGet]
     [Route("/weather/{cityCode}")]
-    public IActionResult GetCityWeather(string cityCode)
+    public IActionResult City(string cityCode)
     {
-        ViewBag.Title = "City Weather Forecast";
+        if (string.IsNullOrWhiteSpace(cityCode))
+        {
+            return View();
+        }
+
         ViewBag.ShowDetails = false;
         var city = _cities.FirstOrDefault(temp => temp.CityUniqueCode.Equals(cityCode, StringComparison.CurrentCultureIgnoreCase));
         if (city == null)
@@ -57,7 +63,9 @@ public class WeatherController(ILogger<WeatherController> logger) : Controller
                 ErrorMessage = $"City with code {cityCode} not found." 
             });
         }
-        return View("CityWeather", city);
+        ViewBag.Title = city.CityName + " | City Weather";
+        _logger.LogInformation("Retrieved weather for city: {CityName}", city?.CityName ?? "Not Found");
+        return View(city);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
