@@ -3,46 +3,21 @@ using System.Diagnostics;
 using System.Net;
 using System.Reflection;
 using WeatherForecast.Models;
+using WeatherForecast.Services;
 
 namespace WeatherForecast.Controllers;
 
-public class WeatherController(ILogger<WeatherController> logger) : Controller
+public class WeatherController(ILogger<WeatherController> logger, IWeatherService service) : Controller
 {
-    private readonly ILogger<WeatherController> _logger = logger;
-
-    private readonly IList<CityWeather> _cities =
-    [
-        new()
-        {
-            CityUniqueCode = "LDN",
-            CityName = "London",
-            DateAndTime = DateTime.Parse("2030-01-01 8:00"),
-            TemperatureFahrenheit = 33
-        },
-        new()
-        {
-            CityUniqueCode = "NYC",
-            CityName = "New York",
-            DateAndTime = DateTime.Parse("2030-01-01 3:00"),
-            TemperatureFahrenheit = 60
-        },
-        new()
-        {
-            CityUniqueCode = "PAR",
-            CityName = "Paris",
-            DateAndTime = DateTime.Parse("2030-01-01 9:00"),
-            TemperatureFahrenheit = 82
-        }
-    ];
-
     [HttpGet]
     [Route("/")]
     public IActionResult Index()
     {
         ViewBag.Title = "Weather Forecast";
         ViewBag.ShowDetails = true;
-        _logger.LogInformation("Accessed weather forecast index with {CityCount} cities", _cities.Count);
-        return View(_cities);
+        var cities = service.GetWeatherDetails();
+        logger.LogInformation("Accessed weather forecast index with {CityCount} cities", cities.Count);
+        return View(cities);
     }
 
     [HttpGet]
@@ -55,7 +30,7 @@ public class WeatherController(ILogger<WeatherController> logger) : Controller
         }
 
         ViewBag.ShowDetails = false;
-        var city = _cities.FirstOrDefault(temp => temp.CityUniqueCode.Equals(cityCode, StringComparison.CurrentCultureIgnoreCase));
+        var city = service.GetWeatherByCityCode(cityCode);
         if (city == null)
         {
             return View("Error", new ErrorViewModel { 
@@ -64,7 +39,7 @@ public class WeatherController(ILogger<WeatherController> logger) : Controller
             });
         }
         ViewBag.Title = city.CityName + " | City Weather";
-        _logger.LogInformation("Retrieved weather for city: {CityName}", city?.CityName ?? "Not Found");
+        logger.LogInformation("Retrieved weather for city: {CityName}", city?.CityName ?? "Not Found");
         return View(city);
     }
 
