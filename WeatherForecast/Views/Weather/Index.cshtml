@@ -1,36 +1,15 @@
 ﻿@model IEnumerable<CityWeather>
 
-@foreach (var city in Model)
-{
-    <div class="box flex float-left w-25 margin-top-200 margin-left @GetBgColor(city.TemperatureFahrenheit)">
-        <table class="w-100">
-            <tbody>
-                <tr>
-                    <td class="w-50">
-                        <h3>@city.CityName</h3>
-                        <p class="text-dark-grey">@city.DateAndTime.ToString("t")</p>
-                        <a class="margin-top" href="/weather/@city.CityUniqueCode">Details</a>
-                    </td>
-                    <td class="w-50 border-left">
-                        <div class="margin-left">
-                            <h3 class="text-lg-center inline-block">@city.TemperatureFahrenheit</h3>
-                            <sup><span class="text-dark-grey">&#8457;</span></sup>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+@{
+    ViewBag.Title = "Weather";
 }
 
-@functions {
-    public static string GetBgColor(int temperature)
-    {
-        return temperature switch
+<div class="margin-top-200 margin-left">
+    <div class="flex">
+        @foreach (CityWeather city in Model)
         {
-            > 74 => "orange-back",
-            < 44 => "blue-back",
-            _ => "green-back"
-        };
-    }
-}
+            @await Component.InvokeAsync("City", new { city = city })
+        }
+
+    </div>
+</div>
